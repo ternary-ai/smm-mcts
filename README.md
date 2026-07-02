@@ -1,8 +1,17 @@
 # smm-mcts
 
-**Simultaneous-Move MCTS with decoupled UCB and CMA-ES self-play trainer.**
+**Simultaneous-Move MCTS for Code World Models: decoupled UCB planning and CMA-ES self-play training.**
 
-A game-agnostic Python library for building competitive agents in simultaneous-move games — any game where all players act at the same instant without observing each other's choices first.
+We introduce a Python library for building competitive agents in simultaneous-move games — any game where all players act at the same instant without observing each other's choices first.
+
+## Why this matters for Code World Models and AGI
+
+Code World Models matter because they provide an explicit, inspectable simulator of environment dynamics. That makes it possible to iterate quickly on environment rules, evaluate counterfactuals, and debug failure modes directly in code rather than only through opaque end-to-end policy behavior.
+
+For AGI progress, this is important: general intelligence needs reliable planning over long horizons in changing multi-agent worlds, not just reactive pattern matching. A CWM provides the substrate for that planning; SM-MCTS provides the game-theoretically grounded search procedure that keeps planning robust when other agents act simultaneously and adaptively. Stock markets are a canonical example: many participants place orders concurrently, each anticipating others without observing their exact next move first. The same simultaneous-move structure appears in auctions, ad bidding, and network congestion control, where robust mixed strategies can outperform brittle deterministic policies.
+
+In short: a strong CWM without the right planner underperforms, and a strong planner without a good CWM cannot reason about the world well enough. This library targets that interface directly.
+In a Code World Model (CWM), the planner is the decision layer that turns simulation into executable strategy. If this layer is mismatched to simultaneous actions, the model's quality is bottlenecked by exploitable planning. SM-MCTS with decoupled UCB fixes that bottleneck by producing robust mixed strategies in the game classes where CWMs are most useful (real-time, partially observed, multi-agent environments).
 
 `SMAgent` is the core agent class: a simultaneous-move MCTS player with decoupled UCB, progressive widening, and cross-turn subtree reuse. Pair it with `CMAESTrainer` to discover optimal weights through self-play.
 
@@ -28,6 +37,8 @@ SM-MCTS (decoupled UCB):
 ```
 
 In a 1 000-game benchmark on Orbit Wars (a real-time strategy game), SM-MCTS beat joint-action sequential MCTS **85% of the time** using the same world model, same time budget, and same weights. The only difference was the tree structure.
+
+
 
 ---
 

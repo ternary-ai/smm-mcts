@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name            = "smm-mcts"
 version         = "0.1.0"
-description     = "Simultaneous-Move MCTS with decoupled UCB and CMA-ES self-play trainer"
+description     = "Simultaneous-Move MCTS for Code World Models with decoupled UCB and CMA-ES self-play"
 readme          = "README.md"
 license         = { text = "MIT" }
 requires-python = ">=3.11"
