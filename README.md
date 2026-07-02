@@ -4,6 +4,8 @@
 
 A game-agnostic Python library for building competitive agents in simultaneous-move games — any game where all players act at the same instant without observing each other's choices first.
 
+`SMAgent` is the core agent class: a simultaneous-move MCTS player with decoupled UCB, progressive widening, and cross-turn subtree reuse. Pair it with `CMAESTrainer` to discover optimal weights through self-play.
+
 ```
 pip install smm-mcts
 ```
