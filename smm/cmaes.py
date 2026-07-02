@@ -57,7 +57,7 @@ from typing import Any, Callable
 import cma
 import numpy as np
 
-from .mcts import SMBot
+from .mcts import SMAgent
 from .protocols import WorldModel
 
 
@@ -117,8 +117,8 @@ def _free_dims(spec: list[WeightSpec]) -> int:
 
 def _play_game(
     wm: WorldModel,
-    bot_a: SMBot,
-    bot_b: SMBot,
+    bot_a: SMAgent,
+    bot_b: SMAgent,
     init_state: Any,
     num_players: int,
     budget_s: float,
@@ -168,14 +168,14 @@ def _eval_weights(
 
         # Alternate sides to cancel positional advantage
         if g % 2 == 0:
-            bot_a = SMBot(wm, num_players, **candidate_kwargs)
-            bot_b = SMBot(wm, num_players, **dict(bot_kwargs, weights=pool_w))
+            bot_a = SMAgent(wm, num_players, **candidate_kwargs)
+            bot_b = SMAgent(wm, num_players, **dict(bot_kwargs, weights=pool_w))
             vals  = _play_game(wm, bot_a, bot_b, state, num_players, budget_s, rng)
             if vals[0] > 0.6:
                 wins += 1
         else:
-            bot_a = SMBot(wm, num_players, **dict(bot_kwargs, weights=pool_w))
-            bot_b = SMBot(wm, num_players, **candidate_kwargs)
+            bot_a = SMAgent(wm, num_players, **dict(bot_kwargs, weights=pool_w))
+            bot_b = SMAgent(wm, num_players, **candidate_kwargs)
             vals  = _play_game(wm, bot_a, bot_b, state, num_players, budget_s, rng)
             if vals[1] > 0.6:
                 wins += 1
@@ -200,7 +200,7 @@ class CMAESTrainer:
     popsize          : int         — CMA-ES population per generation (default 12)
     sigma_init       : float       — initial step size in normalised space (0.3)
     budget_s         : float       — per-turn time budget for self-play games
-    bot_kwargs       : dict        — extra SMBot kwargs (max_depth, pw_c, etc.)
+    bot_kwargs       : dict        — extra SMAgent kwargs (max_depth, pw_c, etc.)
     seed             : int | None  — random seed for reproducibility
     verbose          : bool        — print progress to stdout (default True)
     """

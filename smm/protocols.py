@@ -1,6 +1,6 @@
 """smm.protocols — WorldModel interface for the SM-MCTS / CMA-ES library.
 
-Any game can plug into SMBot and CMAESTrainer by providing an object that
+Any game can plug into SMAgent and CMAESTrainer by providing an object that
 satisfies WorldModel.  The type is checked at runtime via isinstance() when
 using @runtime_checkable, but duck-typing also works — just implement the
 methods with the correct signatures.
@@ -22,7 +22,7 @@ from typing import Any, Protocol, runtime_checkable
 
 @runtime_checkable
 class WorldModel(Protocol):
-    """Minimal contract a game engine must satisfy to use SMBot / CMAESTrainer.
+    """Minimal contract a game engine must satisfy to use SMAgent / CMAESTrainer.
 
     All methods receive and return plain Python objects; no numpy or torch
     dependencies are required at this layer.
@@ -72,9 +72,9 @@ class WorldModel(Protocol):
         """Return the list of abstract actions available to player_id.
 
         Each entry must be **hashable** (tuple, int, string, frozenset, …)
-        because it is used as a dict key inside SMBot's UCB tables.
+        because it is used as a dict key inside SMAgent's UCB tables.
         The list must always contain at least one entry (the no-op).
-        action_kwargs come from SMBot.action_kwargs, letting callers tune the
+        action_kwargs come from SMAgent.action_kwargs, letting callers tune the
         action-space width without changing the WorldModel implementation.
         """
         ...

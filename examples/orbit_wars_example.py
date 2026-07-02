@@ -1,17 +1,17 @@
 """ow_adapter.py — Orbit Wars WorldModel adapter for the smm library.
 
 Wraps the functions in main.py (cwm_apply_joint_action, cwm_is_terminal, …)
-into the smm.WorldModel protocol so you can use SMBot and CMAESTrainer with
+into the smm.WorldModel protocol so you can use SMAgent and CMAESTrainer with
 Orbit Wars without modifying main.py.
 
 Usage
 ─────
     from ow_adapter import OrbitWarsWM, ow_weight_spec, make_initial_state
-    from smm import SMBot, CMAESTrainer, WeightSpec
+    from smm import SMAgent, CMAESTrainer, WeightSpec
     import time, random
 
     wm  = OrbitWarsWM()
-    bot = SMBot(
+    bot = SMAgent(
         wm,
         num_players  = 2,
         weights      = ow_load_weights(2),

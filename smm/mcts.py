@@ -24,11 +24,11 @@ Key extensions
 
 Usage
 ─────
-    from smm import SMBot
+    from smm import SMAgent
     from my_game import MyWorldModel
 
     wm  = MyWorldModel()
-    bot = SMBot(wm, num_players=2, weights={"w_material": 0.9})
+    bot = SMAgent(wm, num_players=2, weights={"w_material": 0.9})
 
     action = bot.choose_action(state, player_id=0, deadline=time.monotonic()+0.17)
     concrete = wm.to_concrete(state, player_id=0, abstract_action=action)
@@ -208,7 +208,7 @@ class _TreeCache:
 
 # ── Public API ─────────────────────────────────────────────────────────────────
 
-class SMBot:
+class SMAgent:
     """Simultaneous-Move MCTS agent parameterised by a WorldModel.
 
     Parameters

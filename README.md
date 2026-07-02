@@ -88,10 +88,10 @@ class MyGameWM:
 
 ```python
 import time
-from smm import SMBot
+from smm import SMAgent
 
 wm  = MyGameWM()
-bot = SMBot(
+bot = SMAgent(
     wm,
     num_players  = 2,
     weights      = {"w_material": 0.9, "w_control": 0.5},
@@ -141,10 +141,10 @@ print(best_weights)
 
 ## API reference
 
-### `SMBot`
+### `SMAgent`
 
 ```python
-SMBot(
+SMAgent(
     world_model:      WorldModel,
     num_players:      int   = 2,
     weights:          dict  = {},
@@ -234,7 +234,7 @@ def archetype_policy(node, pid, rng):
         return rng.choice(attacks)
     return no_ops[0] if no_ops else node.candidates[pid][0]
 
-bot = SMBot(wm, num_players=2, opponent_policy=archetype_policy)
+bot = SMAgent(wm, num_players=2, opponent_policy=archetype_policy)
 ```
 
 ---
